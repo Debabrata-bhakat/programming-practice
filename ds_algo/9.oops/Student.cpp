@@ -19,7 +19,7 @@ class Student{
     }
 
     // Copy constructor
-    Student(Student s){
+    Student(Student const &s){
         this ->age = s.age;
 
         // this ->name = s.name;  Shallow copy
