@@ -29,4 +29,9 @@ int main(){
     f1.print();
     Fraction f7 = ++f1;
     f7.print();
+
+
+    Fraction f8 = f1++;
+    f1.print();
+    f8.print();
 }
