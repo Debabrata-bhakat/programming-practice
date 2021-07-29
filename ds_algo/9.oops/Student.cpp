@@ -1,9 +1,9 @@
-#include <iostream>
+include <iostream>
 #include <string.h>
 using namespace std;
 
 class Student{
-    private:
+   private:
     int age;
 
     public:
