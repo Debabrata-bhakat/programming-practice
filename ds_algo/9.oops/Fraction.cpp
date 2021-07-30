@@ -124,7 +124,7 @@ class Fraction{
 	return fNew;
     }
 
-    Fraction operator+= (Fraction const &f2){
+    Fraction& operator+= (Fraction const &f2){
         int lcm = denominator*f2.denominator;
         int x = lcm/denominator;
         int y = lcm/f2.denominator;
@@ -134,6 +134,7 @@ class Fraction{
         numerator = num;
         denominator = lcm;
         simplify();
+        return *this;
     }
 
 
