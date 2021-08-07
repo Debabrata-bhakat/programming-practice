@@ -2,6 +2,11 @@
 using namespace std;
 #include "Node.cpp"
 
+class Pair{
+    public:
+    Node *head;
+    Node *tail;
+};
 
 void solve();
 int main()
@@ -48,6 +53,41 @@ void print(Node *head){
     cout << '\n';
 }
 
+Pair reverseLL_2(Node *head){
+    // Base case
+    if(head==NULL or head->next==NULL){
+        Pair ans;
+        ans.head=head;
+        ans.tail=head;
+        return ans;
+    }
+
+    Pair smallAns = reverseLL_2(head->next);
+    smallAns.tail->next = head;
+    head->next=NULL;
+    Pair ans;
+    ans.head = smallAns.head;
+    ans.tail = head;
+    return ans;
+}
+
+Node *reverseLL_better(Node *head){
+    return reverseLL_2(head).head;
+}
+
+Node *reverseLL_3(Node *head){
+    // Base case
+    if(head==NULL or head->next==NULL){
+        return head;
+    }
+
+    Node *smallOutput = reverseLL_3(head->next);
+    Node *tail = head->next;
+    tail->next = head;
+    head->next = NULL;
+    return smallOutput;
+
+}
 Node *reverseLL(Node *head){
     // Base case
     if(head==NULL or head->next==NULL){
@@ -69,4 +109,8 @@ void solve(){
     Node *head = takeInput();
     Node *res = reverseLL(head);
     print(res);
+    Node *res2 = reverseLL_better(head);
+    print(res2);
+    Node *res3 = reverseLL_3(head);
+    print(res3);
 }
