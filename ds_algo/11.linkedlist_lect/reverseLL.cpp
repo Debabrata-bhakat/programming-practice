@@ -105,12 +105,28 @@ Node *reverseLL(Node *head){
 
 }
 
+Node *reverseLL_iter(Node *head){
+    Node *c = head;
+    Node *prev = NULL;
+    Node *n = head->next;
+    c->next = prev;
+    while(n!=NULL){
+        prev = c;
+        c = n;
+        n = n->next;
+        c->next = prev;
+    }
+    return c;
+}
+
 void solve(){
     Node *head = takeInput();
-    Node *res = reverseLL(head);
-    print(res);
-    Node *res2 = reverseLL_better(head);
-    print(res2);
-    Node *res3 = reverseLL_3(head);
-    print(res3);
+    // Node *res = reverseLL(head);
+    // print(res);
+    // Node *res2 = reverseLL_better(head);
+    // print(res2);
+    // Node *res3 = reverseLL_3(head);
+    // print(res3);
+    Node *res4 = reverseLL_iter(head);
+    print(res4);
 }
