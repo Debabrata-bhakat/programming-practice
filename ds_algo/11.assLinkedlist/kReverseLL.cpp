@@ -2,6 +2,12 @@
 using namespace std;
 #include "Node.cpp"
 
+class Pair{
+    public:
+    Node *head;
+    Node *tail;
+};
+
 void solve();
 int main()
 {
@@ -47,24 +53,55 @@ void print(Node *head){
     
 }
 
-Node *reverseLL(Node *head){
+Pair reverseLL(Node *head){
     // Base case
     if(head==NULL or head->next==NULL){
-        return head;
+        Pair res;
+        res.head = head;
+        res.tail = head;
+        return res;
     }
-    
+    Pair smallOutput = reverseLL(head->next);
+    smallOutput.tail->next = head;
+    head->next = NULL;
+    Pair res;
+    res.head = smallOutput.head;
+    res.tail = head;
+    return res; 
 
 }
 
 Node *kReverseLL(Node *head, int k){
     Node *temp = head;
-    int c = 0;
-    while(temp!=NULL or c++!=k){
+    int c = 1;
+    while(temp!=NULL){
         temp = temp->next;
     }
+    // Base case
+    if(c<=k){
+        return reverseLL(head).head;
+    }
+    else{
+        c = 1;
+        temp = head;
+        while (temp!=NULL and c++!=k)
+        {
+            temp = temp->next;
+        }
+        Node *temp2 = temp->next;
+        temp->next = NULL;
+        Pair rev = reverseLL(head);
+        Node *smallOutput = kReverseLL(temp2,k);
+        rev.tail->next = smallOutput;
+        return rev.head;
 
+    }
 }
 
 void solve(){
     Node *head = takeInput();
+    int i;
+    cin >> i;
+    Node *res = kReverseLL(head,i);
+    print(res);
 }
