@@ -53,57 +53,52 @@ void print(Node *head){
     
 }
 
-Pair reverseLL(Node *head){
-    // Base case
-    if(head==NULL or head->next==NULL){
-        Pair res;
-        res.head = head;
-        res.tail = head;
-        return res;
-    }
-    Pair smallOutput = reverseLL(head->next);
-    smallOutput.tail->next = head;
-    head->next = NULL;
-    Pair res;
-    res.head = smallOutput.head;
-    res.tail = head;
-    return res; 
-
-}
-
-Node *kReverseLL(Node *head, int k){
-    if (k==0) return head;
+Node *bubbleSortLL(Node *head){
+    // Find length
     Node *temp = head;
-    int c = 1;
+    int count = 0;
     while(temp!=NULL){
         temp = temp->next;
-        c++;
+        count++;
     }
-    // Base case
-    if(c<=k){
-        return reverseLL(head).head;
-    }
-    else{
-        c = 1;
+    for (int i = 0; i < count-1; i++)
+    {
         temp = head;
-        while (temp!=NULL and c++!=k)
-        {
-            temp = temp->next;
+        Node *p = NULL;
+        Node *c = head;
+        Node *n = head->next;
+        while(c->next!=NULL){
+            if(c->data<=n->data){
+                p = c;
+                c = n;
+                n = n->next;
+            }
+            else if(p==NULL){
+                c->next = n->next;
+                n->next = c;
+                // Update
+                p = n;
+                n = n->next->next;
+                //change head
+                head = p;
+            }
+            else{
+                p->next = n;
+                c->next = n->next;
+                n->next = c;
+                // Update
+                p = p->next;
+                n = n->next->next;
+            }
         }
-        Node *temp2 = temp->next;
-        temp->next = NULL;
-        Pair rev = reverseLL(head);
-        Node *smallOutput = kReverseLL(temp2,k);
-        rev.tail->next = smallOutput;
-        return rev.head;
-
+        
     }
+    return head;
+    
 }
 
 void solve(){
     Node *head = takeInput();
-    int i;
-    cin >> i;
-    Node *res = kReverseLL(head,i);
+    Node *res = bubbleSortLL(head);
     print(res);
 }
