@@ -103,7 +103,7 @@ Node *kReverseLL(Node *head, int k){
 void solve(){
     Node *head = takeInput();
     int i;
-    cin >> i;
+    cin >>i;
     Node *res = kReverseLL(head,i);
     print(res);
 }
