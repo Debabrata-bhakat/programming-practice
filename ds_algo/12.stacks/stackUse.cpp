@@ -1,13 +1,14 @@
 #include <iostream>
 using namespace std;
-#include "StackUsingArray.cpp"
+// #include "StackUsingArray.cpp"
+#include "DynamicStackUsingArray.cpp"
 
 int main(){
-    StackUsingArray s(4);
+    StackUsingArray s;
     s.push(10);
     s.push(20);
     s.push(30);
-    s.push(40);
+    s.push(40); 
     s.push(50);
 
     cout << s.top() << endl;
