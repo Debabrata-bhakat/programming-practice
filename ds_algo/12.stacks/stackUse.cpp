@@ -4,12 +4,12 @@ using namespace std;
 #include "DynamicStackUsingArray.cpp"
 
 int main(){
-    StackUsingArray s;
-    s.push(10);
-    s.push(20);
-    s.push(30);
-    s.push(40); 
-    s.push(50);
+    StackUsingArray<char> s;
+    s.push(100);
+    s.push(101);
+    s.push(102);
+    s.push(103); 
+    s.push(104);
 
     cout << s.top() << endl;
 

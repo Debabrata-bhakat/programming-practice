@@ -1,6 +1,7 @@
 #include <climits>
+template <typename T>
 class StackUsingArray{
-    int *data;
+    T *data;
     int nextIndex;
     int capacity;
 
@@ -8,7 +9,7 @@ class StackUsingArray{
 
     StackUsingArray(){
         capacity = 4;
-        data = new int[capacity];
+        data = new T[capacity];
         nextIndex = 0;
     }
 
@@ -20,9 +21,9 @@ class StackUsingArray{
         return nextIndex==0;
     }
 
-    void push(int element){
+    void push(T element){
         if(nextIndex == capacity){
-            int *newData = new int[capacity*2];
+            T *newData = new T[capacity*2];
             for (int i = 0; i < capacity; i++)
             {
                 newData[i] = data[i];
@@ -34,18 +35,18 @@ class StackUsingArray{
         data[nextIndex++] = element;
     }
 
-    int pop(){
+    T pop(){
         if(isEmpty()){
             cout << "Stack is empty\n";
-            return INT_MIN;
+            return 0;
         }
         return data[--nextIndex];
     }
 
-    int top(){
+    T top(){
         if(isEmpty()){
             cout << "Stack is empty\n";
-            return INT_MIN;
+            return 0;
         }
         return data[nextIndex-1];
     }
