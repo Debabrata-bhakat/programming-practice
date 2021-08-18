@@ -93,7 +93,14 @@ int numNodes(TreeNode<int> *root){
     return ans;
 }
 
-
+int sumNodes(TreeNode<int> *root){
+    int sum = root->data;
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        sum += sumNodes(root->children[i]);
+    }
+    return sum;
+}
 
 int main(){
     // TreeNode<int> *root = new TreeNode<int>(1);
@@ -103,4 +110,5 @@ int main(){
     // root->children.push_back(node2);
     TreeNode<int> *root = takeInputLevelWise();
     printTreeLevelWise(root);
+    cout << sumNodes(root) << endl;
 }

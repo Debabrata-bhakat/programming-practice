@@ -93,7 +93,15 @@ int numNodes(TreeNode<int> *root){
     return ans;
 }
 
-
+int largestData(TreeNode<int> *root){
+    int max = root->data;
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        int temp = largestData(root->children[i]);
+        if(temp>max) max = temp;
+    }
+    return max;
+}
 
 int main(){
     // TreeNode<int> *root = new TreeNode<int>(1);
@@ -103,4 +111,5 @@ int main(){
     // root->children.push_back(node2);
     TreeNode<int> *root = takeInputLevelWise();
     printTreeLevelWise(root);
+    cout << largestData(root) << endl;
 }
