@@ -84,6 +84,17 @@ void printTree(TreeNode<int> *root){
     
 }
 
+void preOrder(TreeNode<int> *root){
+    // Edge case
+    if(root==NULL) return;
+    cout << root->data  << " ";
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        preOrder(root->children[i]);
+    }
+    
+}
+
 int numNodes(TreeNode<int> *root){
     int ans = 1;
     for (int i = 0; i < root->children.size(); i++)
