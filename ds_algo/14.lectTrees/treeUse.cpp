@@ -92,7 +92,15 @@ void preOrder(TreeNode<int> *root){
     {
         preOrder(root->children[i]);
     }
-    
+}
+void postOrder(TreeNode<int> *root){
+    // Edge case
+    if(root==NULL) return;
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        postOrder(root->children[i]);
+    }
+    cout << root->data  << " ";
 }
 
 int numNodes(TreeNode<int> *root){
@@ -104,8 +112,15 @@ int numNodes(TreeNode<int> *root){
     return ans;
 }
 
+void deleteTree(TreeNode<int> *root){
+    for(int i=0; i<root->children.size(); i++){
+        deleteTree(root->children[i]);
+    } 
+    delete root;
+}
 
 
+// 1 3 2 3 4 2 5 6 2 7 8 0 0 0 0 1 9 0 
 int main(){
     // TreeNode<int> *root = new TreeNode<int>(1);
     // TreeNode<int> *node1 = new TreeNode<int>(2);
@@ -114,4 +129,8 @@ int main(){
     // root->children.push_back(node2);
     TreeNode<int> *root = takeInputLevelWise();
     printTreeLevelWise(root);
+    preOrder(root);
+    cout << endl;
+    postOrder(root);
+   // deleteTree(root);
 }
