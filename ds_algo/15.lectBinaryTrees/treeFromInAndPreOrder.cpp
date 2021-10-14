@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <vector>
 #include "BinaryTreeNode.h"
 using namespace std;
 
@@ -109,6 +110,39 @@ void postOrder(BinaryTreeNode<int> *root){
     cout << root->data << " ";
 }
 
+BinaryTreeNode<int> *buildTree(int *in, int *pr, int inS, int inE, int preS, int preE){
+    if(inS>inE){
+        return NULL;
+    cout << "hhell\n";
+    }
+    int lins, line, lpres, lpree, rins, rine, rpres, rpree;
+    lins = inS;
+    int rootData = pr[preS];
+    int root_pos = -1;
+    for (int i = inS; i <= inE; i++)
+    {
+        if(in[i] == rootData){
+            root_pos = i;
+            break;  
+        } 
+    }
+    line = root_pos-1;
+    lpres = preS + 1;
+    int left_size = line - lins + 1;
+    lpree = line - lins + lpres;
+
+    rpree = preE;
+    rpres = lpree + 1;
+    rine = inE;
+    rins = root_pos+1;
+
+
+    BinaryTreeNode<int> *root = new BinaryTreeNode<int>(rootData);
+    root->left = buildTree(in, pr, lins, line, lpres, lpree);
+    root->right = buildTree(in, pr, rins, rine, rpres, rpree);
+    return root;
+}
+
 // 1 2 3 4 5 6 7 -1 -1 -1 -1 8 9 -1 -1 -1 -1 -1 -1 
 int main(){
     /*BinaryTreeNode<int> *root = new BinaryTreeNode<int>(1);
@@ -116,9 +150,13 @@ int main(){
     BinaryTreeNode<int> *node2 = new BinaryTreeNode<int>(3);
     root->left = node1;
     root->right = node2;*/
-    BinaryTreeNode<int> *root = takeInputLevelWise();
+    // BinaryTreeNode<int> *root = takeInputLevelWise();
+    // printTreeLevelWise(root);
+    // delete root;
+    // int in[] = {4,2,5,1,8,6,9,3,7};
+    // int pre[] = {1,2,4,5,3,6,8,9,7};
+    int in[] = {2,1,3};
+    int pre[] = {1,2,3};
+    BinaryTreeNode<int> *root = buildTree(in, pre, 0, 2,0,2);
     printTreeLevelWise(root);
-    cout << "Number of nodes: " <<  numNodes(root) << endl;
-    postOrder(root);
-    delete root;
 }
