@@ -1,0 +1,3 @@
+As a start lets try the following two easy array problems, one classic interview problem and other a rather interesting one: 
+ 1. https://leetcode.com/problems/two-sum/
+ 2. https://codeforces.com/contest/766/problem/B
