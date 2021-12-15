@@ -14,8 +14,10 @@ int main()
         solve();
     }
 }
-void ban(ull i){
-    cout << i << '\n';
+
+ull get(int x){
+    ull res = 1;
+    return res*x*(x+1)/2;
 }
 
 void solve(){
@@ -26,37 +28,40 @@ void solve(){
         cout << 2*k-1 << '\n';
         return;
     }
-    ull sum=0;
-    ull c = 0;
-
-    ull low = 1;
-    ull high = k;
-    ull mid;
-    while (low<=high){
-        mid = (high+low)/2;
-        if(mid*(mid+1)/2>=x){
-            ban(mid);
-            return;
-        }
-    } 
-
-    for (ull i = 1; i <= k; i++)
-    {
-        sum += i;
-        c++;
-        if(sum>=x){
-            ban(c);
-            return;
-        }
-    }
-    for (ull i = k-1; i >= 1; i--)
-    {
-        sum+=i;
-        c++;
-        if(sum>=x){
-            ban(c);
-            return;
-        }
-    }
     
+    ull l=1,r=2*k-1,res=2*k-1;
+    bool over=false;
+    while(l<=r){
+        ull mid=(l+r)>>1;
+        if(mid>=k){
+            if(get(k) + get(k - 1) - get(2 * k - 1 - mid)>=x) over=true;
+            else over=false;
+        }else{
+            if(get(mid)>=x) over=true;
+            else over=false;
+        }
+        if(over){
+            res=mid;
+            r=mid-1;
+        }else{
+            l=mid+1;
+        }
+    }
+    cout << res << '\n';
+}
+
+void solve2(){
+    int a[] = {0,0,0,0,1,1,1,1,1,1};
+    int size = 10,res=9;
+    int l = 0,r = size-1;
+    while(l<=r){
+        int mid = (l+r)/2;
+        if(a[mid]==1){
+            res = mid;
+            r=mid-1;
+        }else{
+            l=mid+1;
+        }
+    }
+    cout << res << endl;
 }
