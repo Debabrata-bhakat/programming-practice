@@ -1,0 +1,24 @@
+uuid - done
+items names to dynamodb - done
+change names of lambda - done
+time stamp - done
+make a doc of the application for recommendation and cart prefill
+
+
+
+
+
+risk score vs asset allocation
+max loss vs returns on each asset class
+returns vs invested
+separate out the asset classes
+
+
+tech ops & overall
+review meet + SOP
+
+
+acad 
+two teams
+cdc 
+4

@@ -7,7 +7,7 @@ int main()
 {
     ios_base::sync_with_stdio(false); 
     cin.tie(NULL); 
-    int t;
+    ull t;
     cin >> t;
     while(t--)
     {
@@ -31,8 +31,8 @@ bool check(vector<ull> a, ull k){
     return true;
 }
 
-// Function to print the divisors
-vector<ull> printDivisors(ull n)
+// Function to prull the divisors
+vector<ull> prullDivisors(ull n)
 {
     vector<ull> res;
     // Note that this loop runs till square root
@@ -40,12 +40,12 @@ vector<ull> printDivisors(ull n)
     {
         if (n%i == 0)
         {
-            // If divisors are equal, print only one
+            // If divisors are equal, prull only one
             if (n/i == i)
                 // cout <<" "<< i;
                 res.push_back(i);
   
-            else // Otherwise print both
+            else // Otherwise prull both
                 // cout << " "<< i << " " << n/i;
                 res.push_back(i);
                 res.push_back(n/i);
@@ -54,7 +54,7 @@ vector<ull> printDivisors(ull n)
     return res;
 }
 
-void solve(){
+void solve2(){
     ull n; cin >> n;
     vector<ull> a;
     ull temp; cin >> temp;
@@ -89,7 +89,7 @@ void solve(){
         
     }
 
-    vector<ull> first_div = printDivisors(min_even);
+    vector<ull> first_div = prullDivisors(min_even);
     for (ull i = 0; i < first_div.size(); i++)
     {
         if(check(a,first_div[i])){
@@ -97,7 +97,7 @@ void solve(){
             return;
         }
     }
-    vector<ull> second_div = printDivisors(min_odd);
+    vector<ull> second_div = prullDivisors(min_odd);
     for (ull i = 0; i < second_div.size(); i++)
     {
         if(check(a,second_div[i])){
@@ -129,3 +129,37 @@ void solve(){
     
     cout << "0\n";
 }
+
+ull gcd (ull a, ull b) {
+    if (b == 0)
+        return a;
+    else
+        return gcd (b, a % b);
+}
+
+void solve(){
+    ull n; cin >> n;
+    vector<ull> a;
+    for (ull i = 0; i < n; i++)
+    {
+        ull temp; cin >> temp;
+        a.push_back(temp);
+    }
+    ull res_1 = a[0], res_2=a[1];
+    for (ull i = 2; i < n; i=i+2)
+    {
+        res_1 = gcd(a[i],res_1);
+    }
+    for (ull i = 3; i < n; i=i+2)
+    {
+        res_2 = gcd(a[i],res_2);
+    }
+    if(check(a,res_1)) {
+        cout << res_1 <<  "\n";
+    }else if(check(a,res_2)){
+        cout << res_2 << "\n";
+    }else {
+        cout << "0\n";
+    }
+}
+
