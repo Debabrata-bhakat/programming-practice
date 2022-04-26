@@ -21,12 +21,6 @@ int main()
         partialSum(n);
     }
     preFix(n,k);
-    // cout << arr[2] << endl;
-    for (int i = 0; i < n; ++i)
-    {
-        cout << arr[i] << endl;
-    cout << "kwekjf\n";
-    }
     while(q--){
         solve();
     }
@@ -34,18 +28,19 @@ int main()
 
 void solve(){
     int l,r;cin>>l>>r;
-    cout << arr[r]-arr[l-1] << endl;
+    cout << arr[r]-arr[l-1] << '\n';
 }
 
 void partialSum(int n){
     int l,r;
-    while(n--){
-        cin>>l>>r;
-        arr[l]++; arr[r+1]--;
-    }
+    
+    cin>>l>>r;
+    arr[l]++; arr[r+1]--;
+    
 }
 
 void preFix(int n, int k){
+    n=N;
     for (int i = 1; i < n; ++i)
     {
         arr[i] += arr[i-1];
