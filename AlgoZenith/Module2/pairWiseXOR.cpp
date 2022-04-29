@@ -21,6 +21,8 @@ void solve(){
 	for (int j = 0; j < 31; ++j)
 	{
 		long long temp = 1LL * cnt[j] * (n-cnt[j]);
+		// for & :NC2 , N-> number of one
+		// for | : XOR + AND 
 		ans += temp*(1LL<<j);
 	}
 	cout << ans << endl;
