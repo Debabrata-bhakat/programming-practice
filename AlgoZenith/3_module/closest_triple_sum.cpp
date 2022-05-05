@@ -4,6 +4,8 @@ using lli = long long int;
 using namespace std;
 int mod = 1e9+7;
 void solve();
+int n,x;
+vector<lli> arr;
 // calculate a^b mod 10^9+7
 lli binary_exponentiation(lli a, lli b,  lli mod){
 	lli ans=1;
@@ -27,6 +29,23 @@ int main()
     while(t--) solve();
 }
 void solve(){
-	vector<int> arr {1,2,3,6,8,10};
-	cout << upper_bound(arr.begin()+1,arr.end(),3) - (arr.begin())<< endl;
+	cin>>n>>x;
+	arr.resize(n);
+	for (int i = 0; i < n; ++i)
+	{
+		cin>>arr[i];
+	}
+	sort(arr.begin(),arr.end());
+	lli ans = 3e18;
+	for (int j = 1; j < n-1; ++j)
+	{
+		int i = 0;
+		int k = n-1;
+		while(i<j && k>j){
+			ans = min(ans, abs(arr[i]+arr[j]+arr[k]-x));
+			if(arr[i]+arr[j]+arr[k]<x) i++;
+			else k--;
+		} 
+	}
+	cout << ans << endl;
 }
