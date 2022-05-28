@@ -2,27 +2,18 @@
 #define ull unsigned long long 
 using lli = long long int;
 using namespace std;
-
-int cntDistinct = 0;
+int mod = 1e9+7;
+void solve();
 int freq[100100];
-
+int  cntDistinct = 0;
 void insert(int x){
+	if(freq[x]==0) cntDistinct++;
 	freq[x]++;
-	if(freq[x]==1){
-		cntDistinct++;
-	}
 }
 void remove(int x){
 	freq[x]--;
-	if (freq[x]==0)
-	{
-		cntDistinct--;
-	}
+	if(freq[x]==0) cntDistinct--;
 }
-int n,k;
-vector<int> arr;
-int mod = 1e9+7;
-void solve();
 // calculate a^b mod 10^9+7
 lli binary_exponentiation(lli a, lli b,  lli mod){
 	lli ans=1;
@@ -45,28 +36,27 @@ int main()
     // t=1;
     while(t--) solve();
 }
+
 void solve(){
-	cin>>n>>k;
-	arr.resize(n);
+	int n,k;cin>>n>>k;
+	int arr[n];
 	for (int i = 0; i < n; ++i)
 	{
 		cin>>arr[i];
 	}
-	int ans=0, head=-1,tail=0;
+	int head=-1,tail=0,ans=0;
 	while(tail<n){
-		while(head+1<n && ( (cntDistinct<k && freq[arr[head+1]]==0) || (cntDistinct<=k&&freq[arr[head+1]]>0) ) ){
+		while(head+1<n and ( (cntDistinct<=k and freq[arr[head+1]]>0) or (cntDistinct<k and freq[arr[head+1]]==0) ) ){
 			head++;
 			insert(arr[head]);
 		}
-		// ans = max(ans,head-tail+1);
-		// for counting number of subarryas 
-		ans += (head-tail+1);
-		if(head<tail){
-			tail++;
-			head = tail-1;
-		}else{
+		ans +=(head-tail+1);
+		if(head>=tail){
 			remove(arr[tail]);
 			tail++;
+		}else{
+			tail++;
+			head = tail-1;
 		}
 	}
 	cout << ans << endl;

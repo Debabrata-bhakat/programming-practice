@@ -27,32 +27,24 @@ int main()
     while(t--) solve();
 }
 
-long long C(int n, int r) {
-    if(r > n - r) r = n - r; // because C(n, r) == C(n, n - r)
-    long long ans = 1;
-    int i;
-
-    for(i = 1; i <= r; i++) {
-        ans *= n - r + i;
-        ans /= i;
-    }
-
-    return ans;
-}
-vector<int> getRow(int A) {
-    vector<int> arr(A+1);
-    for(int i=0;i<=A;i++){
-        arr[i] = (int)(C(A,i));
-        cout << arr[i] << endl;
-    }
-    return arr;
+vector<int> seive(int n){
+	vector<int> is_prime(n+1);
+	for(int i=2;i<=n;i++) is_prime[i]=1;
+	for(int i=2;i<=n;i++){
+		if(is_prime[i]){
+			for(long long j=1LL*i*i;j<=n;j+=i){
+				is_prime[j]=0;
+			}
+		}
+	}
+	return is_prime;
 }
 
 void solve(){
 	int n;cin>>n;
-	vector<int> arr = getRow(n);
-	// for (int i = 0; i < n; ++i)
-	// {
-	// 	cout << arr[i] << endl;
-	// }
+	vector<int> ans = seive(n);
+	for(auto i : ans){
+		cout << i << " " ;
+	}
+	cout << endl;
 }

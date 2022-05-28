@@ -1,3 +1,4 @@
+// https://codeforces.com/contest/1676/problem/E
 #include <bits/stdc++.h>
 #define ull unsigned long long 
 using lli = long long int;
@@ -27,32 +28,26 @@ int main()
     while(t--) solve();
 }
 
-long long C(int n, int r) {
-    if(r > n - r) r = n - r; // because C(n, r) == C(n, n - r)
-    long long ans = 1;
-    int i;
-
-    for(i = 1; i <= r; i++) {
-        ans *= n - r + i;
-        ans /= i;
-    }
-
-    return ans;
-}
-vector<int> getRow(int A) {
-    vector<int> arr(A+1);
-    for(int i=0;i<=A;i++){
-        arr[i] = (int)(C(A,i));
-        cout << arr[i] << endl;
-    }
-    return arr;
-}
-
 void solve(){
-	int n;cin>>n;
-	vector<int> arr = getRow(n);
+	int n,q;cin>>n>>q;
+	vector<int> arr(n);
+	for (int i = 0; i < n; ++i)
+	{
+		cin>>arr[i];
+	}
+	sort(arr.begin(), arr.end(), greater<int>());
+	for (int i = 1; i < n; ++i)
+	{
+		arr[i] += arr[i-1];
+	}
 	// for (int i = 0; i < n; ++i)
 	// {
-	// 	cout << arr[i] << endl;
+	// 	cout << arr[i] << " ";
 	// }
+	while(q--){
+		int x;cin>>x;
+		int pos = lower_bound(arr.begin(),arr.end(),x) - arr.begin();
+		if(pos == arr.size()) cout << "-1\n";
+		else cout << pos+1 << endl;
+	}
 }

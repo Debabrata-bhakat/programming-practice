@@ -2,25 +2,6 @@
 #define ull unsigned long long 
 using lli = long long int;
 using namespace std;
-
-int cntDistinct = 0;
-int freq[100100];
-
-void insert(int x){
-	freq[x]++;
-	if(freq[x]==1){
-		cntDistinct++;
-	}
-}
-void remove(int x){
-	freq[x]--;
-	if (freq[x]==0)
-	{
-		cntDistinct--;
-	}
-}
-int n,k;
-vector<int> arr;
 int mod = 1e9+7;
 void solve();
 // calculate a^b mod 10^9+7
@@ -45,28 +26,31 @@ int main()
     // t=1;
     while(t--) solve();
 }
+
 void solve(){
-	cin>>n>>k;
-	arr.resize(n);
+	int n,k;cin>>n>>k;
+	int arr[n];
+	int preFix[n];
 	for (int i = 0; i < n; ++i)
 	{
 		cin>>arr[i];
+		preFix[i] = arr[i];
+		if(i) preFix[i] += preFix[i-1];
 	}
-	int ans=0, head=-1,tail=0;
+	int head=-1,tail=0,ans=0,curr_sum=0;
 	while(tail<n){
-		while(head+1<n && ( (cntDistinct<k && freq[arr[head+1]]==0) || (cntDistinct<=k&&freq[arr[head+1]]>0) ) ){
+		while(head+1<n and (curr_sum+arr[head+1]<=k)){
 			head++;
-			insert(arr[head]);
+			curr_sum += arr[head];
 		}
-		// ans = max(ans,head-tail+1);
-		// for counting number of subarryas 
 		ans += (head-tail+1);
-		if(head<tail){
+		if(head>=tail){
+			curr_sum -= arr[tail];
+			tail++;
+		}else{
+			curr_sum=0;
 			tail++;
 			head = tail-1;
-		}else{
-			remove(arr[tail]);
-			tail++;
 		}
 	}
 	cout << ans << endl;
