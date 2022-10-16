@@ -1,3 +1,4 @@
+// https://www.codechef.com/submit/WATESTCASES
 #include <bits/stdc++.h>
 #define ull unsigned long long 
 using lli = long long int;
@@ -17,6 +18,11 @@ lli binary_exponentiation(lli a, lli b,  lli mod){
 	return ans;
 }
 
+int gcd(int a, int b){
+	if(a==0 or b==0) return a^b;
+	return __gcd(a,b);
+}
+
 int main()
 {
     ios_base::sync_with_stdio(false); 
@@ -29,32 +35,13 @@ int main()
 
 void solve(){
 	int n;cin>>n;
+	vector<int> arr(n);
+	for(int i=0;i<n;i++)cin>>arr[i];
 	string s;cin>>s;
-	int ans=0;
-	if(n%2==1){
-		ans++;
-		int mid = n/2;
-		char ch = s[mid];
-		// go right
-		int temp = mid;
-		while(temp+1<n and s[temp+1]==ch) {
-			temp++; ans++;
-		}
-		temp = mid;
-		while(temp-1>=0 and s[temp-1]==ch) {
-			temp--; ans++;
-		}
-	}else{
-		ans+=2;
-		int mid_right = n/2;
-		int mid_left = mid_right-1;
-		char ch = s[mid_right];
-		while(mid_right+1<n and s[mid_right+1]==ch) {
-			mid_right++; ans++;
-		}
-		while(mid_left-1>=0 and s[mid_left-1]==ch){
-			mid_left--; ans++;
-		}
-	}
-	cout << ans << endl;
+	int res = INT16_MAX;
+	for(int i=0;i<n;i++){
+		if(s[i]=='1') continue;
+		res = min(res,arr[i]);
+	}	
+	cout << res<<endl;
 }

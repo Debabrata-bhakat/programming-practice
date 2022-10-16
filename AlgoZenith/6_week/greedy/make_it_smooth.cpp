@@ -17,6 +17,11 @@ lli binary_exponentiation(lli a, lli b,  lli mod){
 	return ans;
 }
 
+int gcd(int a, int b){
+	if(a==0 or b==0) return a^b;
+	return __gcd(a,b);
+}
+
 int main()
 {
     ios_base::sync_with_stdio(false); 
@@ -28,18 +33,13 @@ int main()
 }
 
 void solve(){
-	int n;cin>>n;
-	vector<int> arr(n);
-	for (int i = 0; i < n; ++i)
-	{
-		cin>> arr[i];
-	}
-	int res=-1;
-	for(int i=0;i<n;i++){
-		if(arr[i]!=i){
-			if(res==-1) res = i;
-			else res = res&i;  
+	int n;cin>>n; vector<lli> arr(n); for(int i=0;i<n;i++) cin>> arr[i];
+	lli ans=0;
+	for(int i=1;i<n;i++){
+		if(arr[i-1]>arr[i]){
+			int curr = (arr[i-1]-arr[i]);
+			ans += curr;
 		}
-	}
-	cout << res << endl;
+	}	
+	cout << ans << '\n';
 }

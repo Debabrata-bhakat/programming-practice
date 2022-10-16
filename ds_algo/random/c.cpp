@@ -17,6 +17,11 @@ lli binary_exponentiation(lli a, lli b,  lli mod){
 	return ans;
 }
 
+int gcd(int a, int b){
+	if(a==0 or b==0) return a^b;
+	return __gcd(a,b);
+}
+
 int main()
 {
     ios_base::sync_with_stdio(false); 
@@ -27,26 +32,45 @@ int main()
     while(t--) solve();
 }
 
+lli check1(lli mid, lli i, vector<lli>& a1, vector<lli>& a2){
+	return a1[i]<=a2[mid];
+}
+
+lli check2(lli mid, lli i, vector<lli>& a1, vector<lli>& a2){
+	return a1[mid]<=a2[i];
+}
+
 void solve(){
-	int n;cin>>n;
-	vector<int> arr(n);
-	for(int i=0;i<n;i++){
-		cin>>arr[i];
-	}
-	if(n==1){
-		cout << "1\n"; return;
-	}
-	sort(arr.begin(),arr.end());
-	int a_prev=arr[0], b_prev=arr[1], a_cnt=1, b_cnt=1,curr=0;
-	for(int i=2;i<n;i++){
-		if(curr==0){
-			if(arr[i]==a_prev) continue;
-			a_prev = arr[i]; a_cnt++; curr=1;
-		}else{
-			if(arr[i]==b_prev) continue;
-			b_prev = arr[i]; b_cnt++; curr=0;
+	lli n;cin>>n;
+	vector<lli> arr1(n),arr2(n); 
+	for(lli i=0;i<n;i++) cin>>arr1[i]; for(lli i=0;i<n;i++) cin>>arr2[i];
+	vector<lli> min_arr, max_arr; 
+	for(lli i=0;i<n;i++){
+		lli lo=0,hi=i,ans=i;
+		while(lo<=hi){
+			lli mid = (lo+hi)/2;
+			if(check1(mid,i,arr1, arr2)){
+				ans = mid; hi = mid-1;
+			}else{
+				lo = mid+1;
+			}
 		}
+		min_arr.push_back(arr2[ans]-arr1[i]);
+	}	
+	for(auto x:min_arr) cout << x << " ";
+	cout << endl;	
+	for(lli i=0;i<n;i++){
+		lli lo=i,hi=n-1,ans=i;
+		while(lo<=hi){
+			lli mid = (lo+hi)/2;
+			if(check2(mid,i,arr1,arr2)){
+				ans = mid; lo=mid+1;
+			}else{
+				hi=mid-1;
+			}
+		}
+		max_arr.push_back(arr2[ans]-arr1[i]);
 	}
-	if(a_cnt>b_cnt and a_prev!=b_prev) b_cnt++;
-	cout << min(a_cnt,b_cnt) << endl;
+	for(auto x:max_arr) cout << x << " ";
+	cout << endl;
 }
